@@ -14,7 +14,7 @@ LIMIT = int(NB_TWIT * 9 / 10)
 
 use_cuda = th.cuda.is_available()
 
-all_lines = open_twit("./Sentiment Analysis Dataset.csv")
+all_lines = open_twit("./res/Sentiment Analysis Dataset.csv")
 data = make_data(all_lines, NB_TWIT)
 #print(data[32])
 
