@@ -49,6 +49,7 @@ def eval_model(model, test_data):
 	model.eval()
 	nbErr = 0
 	total = 0
+	nbPos = 0
 	for y, x in test_data:
 		x = prepare_data.make_long_tensor(x, use_cuda).view((1,-1))
 		x = ag.Variable(x)
@@ -57,12 +58,11 @@ def eval_model(model, test_data):
 		total += 1
 		if out.data[0] != int(y):
 			nbErr += 1
-	# On retourne le nombre d'erreur et le nombre d'exemples de test traités
 	return nbErr, total
 
 EPOCH = 100
 vocab_size = len(char_to_ix)
-embedding_dim = 10
+embedding_dim = 50
 
 model = model.ConvModel(vocab_size, embedding_dim, 0, 140)
 learning_rate = 1e-1

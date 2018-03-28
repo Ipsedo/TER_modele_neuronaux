@@ -35,7 +35,7 @@ class ConvModel(nn.Module):
 		out = self.embedding(inputs)
 		out = out.view((-1, self.embeds_dim, self.sent_length))
 		out = self.conv1D_1(out)
-		#out = self.sig1(out)
 		out = out.sum(dim = 2)
+		out = self.sig1(out)
 		out = self.linear1(out)
 		return self.sig2(out)
