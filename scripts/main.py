@@ -45,16 +45,12 @@ def eval_model(model, test_data):
 	# On retourne le nombre d'erreur et le nombre d'exemples de test traités
 	return nbErr, total
 
-"""line, labels = make_tensor_list(data, 50)
-print(len(line), len(labels))
-print(line[10].size(), labels[10].size())"""
-
 line, off, labels = prepare_data.make_tensor_list_offset(data, 50, use_cuda)
 #print(len(line), len(off), len(labels))
 
 EPOCH = 100
 vocab_size = len(words_to_ix)
-embedding_dim = 10
+embedding_dim = 50
 
 model = model.EmbeddingBagModel(vocab_size, embedding_dim)
 learning_rate = 1e-1
@@ -64,9 +60,9 @@ if use_cuda:
     model.cuda()
     loss_fn.cuda()
 
-optimizer = th.optim.Adagrad(model.parameters(), lr=learning_rate)
+optimizer = th.optim.Adam(model.parameters(), lr=learning_rate)
 
-for i in range(EPOCH):    
+for i in range(EPOCH):
 	model.train()
 
 	total_loss = 0
