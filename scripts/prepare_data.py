@@ -4,6 +4,54 @@ import torch.nn.functional as F
 PADDING = 0
 LIMIT_COUNT = 0
 
+def make_long_tensor(list, use_cuda):
+	if use_cuda:
+		return th.cuda.LongTensor(list)
+	else:
+		return th.LongTensor(list)
+
+def make_float_tensor(list, use_cuda):
+	if use_cuda:
+		return th.cuda.FloatTensor(list)
+	else:
+		return th.FloatTensor(list)
+
+def make_vocab_char(data):
+	char_to_ix = {}
+	char_to_ix["<padding>"] = 0
+	for l, line in data:
+		for w in line:
+			for c in w:
+				if not c in char_to_ix:
+					char_to_ix[c] = len(char_to_ix)
+	return char_to_ix
+
+def line_to_char_ix(data, char_to_ix):
+	res = []
+	for l, line in data:
+		tmp = []
+		for w in line:
+			tmp += [char_to_ix[c] for c in w]
+		if len(tmp) < 140:
+			tmp += [PADDING] * (140 - len(tmp))
+		res.append((l, tmp))
+	return res
+
+def line_char_to_tensor(data, batch_size, use_cuda):
+	res_line = []
+	res_label = []
+	while len(data) != 0:
+		b_s = batch_size if len(data) >= batch_size else len(data)
+		batch_line = []
+		batch_label = []
+		for i in range(b_s):
+			l, line = data.pop()
+			batch_line.append(line)
+			batch_label.append([int(l)])
+		res_line.append(make_long_tensor(batch_line, use_cuda))
+		res_label.append(make_float_tensor(batch_label, use_cuda))
+	return res_line, res_label
+
 def make_vocab(data):
 	word_to_ix = {}
 	word_count = {}
@@ -23,18 +71,6 @@ def line_to_ix(data, word_to_ix, word_count):
 		if len(line) > 0:
 			res.append((l, line))
 	return res
-
-def make_long_tensor(list, use_cuda):
-	if use_cuda:
-		return th.cuda.LongTensor(list)
-	else:
-		return th.LongTensor(list)
-
-def make_float_tensor(list, use_cuda):
-	if use_cuda:
-		return th.cuda.FloatTensor(list)
-	else:
-		return th.FloatTensor(list)
 
 def make_tensor_list(data, batch_size):
 	line = []
