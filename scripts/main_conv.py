@@ -62,12 +62,12 @@ def eval_model(model, test_data):
 			nbErr += 1
 	return nbErr, total
 
-EPOCH = 100
+EPOCH = 300
 vocab_size = len(char_to_ix)
-embedding_dim = 10
+embedding_dim = 100
 
 model = model.ConvModel(vocab_size, embedding_dim, 0, 140)
-learning_rate = 1e-1
+learning_rate = 1e-3
 loss_fn = nn.BCELoss()
 
 if use_cuda:
