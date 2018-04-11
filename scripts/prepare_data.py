@@ -16,6 +16,7 @@ def make_float_tensor(list, use_cuda):
 	else:
 		return th.FloatTensor(list)
 
+# Convolution data preparing
 def make_vocab_char(data):
 	char_to_ix = {}
 	char_to_ix["<padding>"] = 0
@@ -26,6 +27,7 @@ def make_vocab_char(data):
 					char_to_ix[c] = len(char_to_ix)
 	return char_to_ix
 
+# On convertit les char en index et on rajoute du padding
 def line_to_char_ix(data, char_to_ix):
 	res = []
 	for l, line in data:
@@ -37,6 +39,7 @@ def line_to_char_ix(data, char_to_ix):
 		res.append((l, tmp))
 	return res
 
+# Convertit line char en tensor pytorch
 def line_char_to_tensor(data, batch_size, use_cuda):
 	res_line = []
 	res_label = []
@@ -52,6 +55,7 @@ def line_char_to_tensor(data, batch_size, use_cuda):
 		res_label.append(make_float_tensor(batch_label, use_cuda))
 	return res_line, res_label
 
+# Simple model data preparing
 def make_vocab(data):
 	word_to_ix = {}
 	word_count = {}
