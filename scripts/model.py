@@ -34,9 +34,43 @@ class ConvModel(nn.Module):
 
 	def forward(self, inputs):
 		out = self.embedding(inputs)
+		print("1 ", out.size())
 		out = out.view((-1, self.embeds_dim, self.sent_length))
+		print("2", out.size())
 		out = self.conv1D_1(out)
 		out = F.relu(out)
 		out = self.maxPool1D(out).view(-1, self.embeds_dim)
 		out = self.linear1(out)
+		return self.sig1(out)
+
+class ConvModel2(nn.Module):
+
+	def __init__(self, vocab_size, embedding_size, padding, sent_length):
+		super(ConvModel2, self).__init__()
+		self.embeds_dim = embedding_size
+		self.sent_length = sent_length
+		self.in_channel_conv = 1
+		self.out_channel_conv = 100
+		self.embedding = nn.Embedding(
+			vocab_size,
+			embedding_size,
+			padding_idx=padding)
+		self.conv2D_1 = nn.Conv2d(
+			self.in_channel_conv,
+			self.out_channel_conv,
+			(3, self.embeds_dim),
+			stride=(1,1))
+		self.maxPool1D = nn.MaxPool1d(self.sent_length - 2, 100)
+		self.linear1 = nn.Linear(self.out_channel_conv, 1)
+		self.dropout = nn.Dropout(0.2) #Utile ?
+		self.sig1 = nn.Sigmoid()
+
+	def forward(self, inputs):
+		out = self.embedding(inputs)
+		out = out.view(-1, 1, self.sent_length, self.embeds_dim)
+		out = self.conv2D_1(out)
+		out = F.relu(out).view(-1, self.out_channel_conv, self.sent_length - 2)
+		out = self.maxPool1D(out).view(-1, self.out_channel_conv)
+		out = self.linear1(out)
+		out = self.dropout(out)
 		return self.sig1(out)
