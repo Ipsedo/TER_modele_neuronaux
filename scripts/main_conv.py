@@ -1,18 +1,5 @@
 #!/home/samuel/anaconda3/bin/python
 
-"""
-m = nn.Conv1d(16, 33, 3, stride=1)
-	stride=2
-	33 -> taille "d'embedding de retour"
-	3 -> fenêtre
-input = torch.randn(20, 16, 50)
-	20 batch
-	16 taille embedding
-	50 longueur phrase
-output = m(input)
-"""
-
-
 import torch as th
 import torch.nn as nn
 import torch.autograd as ag
