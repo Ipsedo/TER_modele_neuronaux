@@ -75,7 +75,7 @@ class ConvModel2(nn.Module):
 			for k in kernel_sizes])
 
 		self.linear1 = nn.Linear(self.out_channel_conv * len(kernel_sizes), 1)
-		self.dropout = nn.Dropout(2e-1)
+		self.dropout = nn.Dropout(5e-2)
 		self.sig1 = nn.Sigmoid()
 
 	def forward(self, inputs):
