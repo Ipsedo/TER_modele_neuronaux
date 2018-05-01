@@ -7,7 +7,7 @@ def open_twit(filename):
 	all_twit = open(filename, "r").read()
 	all_line = all_twit.split("\n")
 	description = all_line[0]
-	print(description)
+	# print(description)
 	all_line = all_line[1:]
 	return all_line
 
@@ -29,7 +29,7 @@ def tokenize_line(line):
 	line = re.sub(regex_identifiant, "", line)
 	line = re.sub(regex_not_word, "", line)
 	#line = re.sub(regex_special_char, "", line)
-	return [w.strip(" ") for w in re.split('(\W+)?', line) if w.strip(" ")]
+	return [w.strip(" ") for w in re.split('(\W+)', line) if w.strip(" ")]
 
 """regex = "( |,|*|)"
 
