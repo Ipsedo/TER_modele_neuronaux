@@ -10,14 +10,30 @@ import prepare_data
 
 import model
 
-NB_TWIT = 100000
-LIMIT = int(NB_TWIT * 9 / 10)
+# Dataset : TEST DEV TRAIN
+NB_TRAIN = 10000
+NB_DEV = 10000
+NB_TEST = 10000
+NB_TWIT = NB_DEV + NB_TEST + NB_TRAIN
 
 use_cuda = th.cuda.is_available()
 
+print("Load data (%s tweets)..." % (NB_TWIT))
+
 all_lines = open_twit("./res/Sentiment Analysis Dataset.csv")
 data = make_data(all_lines, NB_TWIT)
-#print(data[32])
+
+# print(data[0])
+# print(data[6])
+# print(data[7])
+# print(data[15])
+# print(data[60])
+# print(data[75])
+# print(data[153])
+# print(data[179])
+# print(data[32])
+# print(data[32])
+
 char_to_ix = prepare_data.make_vocab_char(data)
 all_data = prepare_data.line_to_char_ix(data, char_to_ix)
 
@@ -25,20 +41,23 @@ all_data = [x for x in all_data if len(x[1]) > 0]
 
 # print(all_data[0])
 
-data = all_data[:LIMIT]
-data_test = all_data[LIMIT:]
+data = all_data[NB_TEST + NB_DEV:]
+data_test = all_data[:NB_TEST]
+data_dev = all_data[NB_TEST:NB_TEST + NB_DEV]
 
 line, labels = prepare_data.line_char_to_tensor(data, 150, use_cuda)
-print(len(line), len(labels))
-print(type(line[0]), type(labels[0]))
-print(line[0].size(), labels[0].size())
+# print(len(line), len(labels))
+# print(type(line[0]), type(labels[0]))
+# print(line[0].size(), labels[0].size())
 
-def eval_model(model, test_data):
+print("Prepare model...")
+
+def eval_model(model, dataset):
 	model.eval()
 	nbErr = 0
 	total = 0
 	nbPos = 0
-	for y, x in test_data:
+	for y, x in dataset:
 		x = prepare_data.make_long_tensor(x, use_cuda).view((1,-1))
 		x = ag.Variable(x)
 		out = model(x)
@@ -54,7 +73,7 @@ vocab_size = len(char_to_ix)
 embedding_dim = 100
 
 model = model.ConvModel2(vocab_size, embedding_dim, 0, 140)
-learning_rate = 1e-3
+learning_rate = 1e-4
 loss_fn = nn.BCELoss()
 
 if use_cuda:
@@ -62,6 +81,8 @@ if use_cuda:
     loss_fn.cuda()
 
 optimizer = th.optim.Adam(model.parameters(), lr=learning_rate)
+
+print("Learn model...")
 
 for i in range(EPOCH):
 	model.train()
@@ -76,6 +97,6 @@ for i in range(EPOCH):
 		total_loss += loss.data[0]
 		loss.backward()
 		optimizer.step()
-	if i % 10 == 0:
-		err, total = eval_model(model, data_test)
-		print("Epoch (", i, ") : ", total_loss, ", test (err/total) : ", err, " / ", total, sep="")
+	# if i % 10 == 0:
+	err, total = eval_model(model, data_dev)
+	print("Epoch (", i, ") : ", total_loss, ", test (err/total) : ", err, " / ", total, sep="")
