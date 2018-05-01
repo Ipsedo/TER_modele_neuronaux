@@ -9,16 +9,12 @@ class EmbeddingBagModel(nn.Module):
 		self.embeddings = nn.EmbeddingBag(vocab_size, embedding_size, mode='sum')
 		self.linear1 = nn.Linear(embedding_size, 1)
 		self.sig1 = nn.Sigmoid()
-		#self.linear2 = nn.Linear(100, 1)
-		#self.sig2 = nn.Sigmoid()
 
 	def forward(self, inputs):
 		(x, off) = inputs
 		embeds = self.embeddings(x, off)
 		out = self.linear1(embeds)
 		out = self.sig1(out)
-		#out = self.linear2(out)
-		#out = self.sig2(out)
 		return out
 
 class ConvModel(nn.Module):
@@ -35,9 +31,7 @@ class ConvModel(nn.Module):
 
 	def forward(self, inputs):
 		out = self.embedding(inputs)
-		print("1 ", out.size())
 		out = out.view((-1, self.embeds_dim, self.sent_length))
-		print("2", out.size())
 		out = self.conv1D_1(out)
 		out = F.relu(out)
 		out = self.maxPool1D(out).view(-1, self.embeds_dim)
