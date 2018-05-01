@@ -1,0 +1,111 @@
+10000 TRAIN
+10000 DEV
+10000 TEST
+
+embedding : 100
+conv_out_channel : 100
+
+learning_rate : 1e-4
+
+Adam, BCELoss, ConvModel2
+
+Epoch (0) : 44.47094053030014, test (err/total) : 3979 / 10000
+Epoch (1) : 42.488886296749115, test (err/total) : 3809 / 10000
+Epoch (2) : 41.38272827863693, test (err/total) : 3691 / 10000
+Epoch (3) : 40.55266147851944, test (err/total) : 3599 / 10000
+Epoch (4) : 39.662074863910675, test (err/total) : 3543 / 10000
+Epoch (5) : 39.166298151016235, test (err/total) : 3490 / 10000
+Epoch (6) : 38.55132216215134, test (err/total) : 3430 / 10000
+Epoch (7) : 38.095615327358246, test (err/total) : 3439 / 10000
+Epoch (8) : 37.703235268592834, test (err/total) : 3360 / 10000
+Epoch (9) : 36.97268444299698, test (err/total) : 3355 / 10000
+Epoch (10) : 36.52045539021492, test (err/total) : 3346 / 10000
+Epoch (11) : 36.32713058590889, test (err/total) : 3322 / 10000
+Epoch (12) : 36.00560674071312, test (err/total) : 3295 / 10000
+Epoch (13) : 35.58755826950073, test (err/total) : 3300 / 10000
+Epoch (14) : 35.146550208330154, test (err/total) : 3245 / 10000
+Epoch (15) : 34.90844368934631, test (err/total) : 3237 / 10000
+Epoch (16) : 34.54393154382706, test (err/total) : 3242 / 10000
+Epoch (17) : 34.11481350660324, test (err/total) : 3199 / 10000
+Epoch (18) : 33.824976831674576, test (err/total) : 3227 / 10000
+Epoch (19) : 33.305140882730484, test (err/total) : 3211 / 10000
+Epoch (20) : 33.05274924635887, test (err/total) : 3221 / 10000
+Epoch (21) : 32.90612092614174, test (err/total) : 3208 / 10000
+Epoch (22) : 32.15734288096428, test (err/total) : 3187 / 10000
+Epoch (23) : 32.31967732310295, test (err/total) : 3277 / 10000
+Epoch (24) : 31.957892805337906, test (err/total) : 3176 / 10000
+Epoch (25) : 31.525626063346863, test (err/total) : 3187 / 10000
+Epoch (26) : 31.122090309858322, test (err/total) : 3147 / 10000
+Epoch (27) : 30.925837725400925, test (err/total) : 3202 / 10000
+Epoch (28) : 30.704438149929047, test (err/total) : 3210 / 10000
+Epoch (29) : 30.322423100471497, test (err/total) : 3199 / 10000
+Epoch (30) : 30.26957929134369, test (err/total) : 3192 / 10000
+Epoch (31) : 29.935956090688705, test (err/total) : 3177 / 10000
+Epoch (32) : 29.390516102313995, test (err/total) : 3172 / 10000
+Epoch (33) : 29.254380971193314, test (err/total) : 3197 / 10000
+Epoch (34) : 29.01422980427742, test (err/total) : 3177 / 10000
+Epoch (35) : 28.61296683549881, test (err/total) : 3159 / 10000
+Epoch (36) : 28.52881559729576, test (err/total) : 3153 / 10000
+Epoch (37) : 28.313329249620438, test (err/total) : 3210 / 10000
+Epoch (38) : 28.007453620433807, test (err/total) : 3169 / 10000
+Epoch (39) : 27.56016120314598, test (err/total) : 3174 / 10000
+Epoch (40) : 27.675334811210632, test (err/total) : 3163 / 10000
+Epoch (41) : 27.12404289841652, test (err/total) : 3156 / 10000
+Epoch (42) : 27.002361178398132, test (err/total) : 3203 / 10000
+Epoch (43) : 26.796929955482483, test (err/total) : 3159 / 10000
+Epoch (44) : 26.265915513038635, test (err/total) : 3184 / 10000
+Epoch (45) : 26.27317887544632, test (err/total) : 3189 / 10000
+Epoch (46) : 25.91398212313652, test (err/total) : 3187 / 10000
+Epoch (47) : 25.679965794086456, test (err/total) : 3179 / 10000
+Epoch (48) : 25.678310245275497, test (err/total) : 3174 / 10000
+Epoch (49) : 25.243475437164307, test (err/total) : 3181 / 10000
+Epoch (50) : 24.953252255916595, test (err/total) : 3170 / 10000
+Epoch (51) : 25.01629087328911, test (err/total) : 3187 / 10000
+Epoch (52) : 24.490402579307556, test (err/total) : 3168 / 10000
+Epoch (53) : 24.382722824811935, test (err/total) : 3172 / 10000
+Epoch (54) : 23.900223940610886, test (err/total) : 3170 / 10000
+Epoch (55) : 23.983246862888336, test (err/total) : 3154 / 10000
+Epoch (56) : 23.696461528539658, test (err/total) : 3176 / 10000
+Epoch (57) : 23.752263218164444, test (err/total) : 3169 / 10000
+Epoch (58) : 23.61867120862007, test (err/total) : 3194 / 10000
+Epoch (59) : 23.141422152519226, test (err/total) : 3164 / 10000
+Epoch (60) : 23.084982931613922, test (err/total) : 3200 / 10000
+Epoch (61) : 22.796203017234802, test (err/total) : 3205 / 10000
+Epoch (62) : 22.258027285337448, test (err/total) : 3189 / 10000
+Epoch (63) : 22.512547552585602, test (err/total) : 3194 / 10000
+Epoch (64) : 22.324484258890152, test (err/total) : 3200 / 10000
+Epoch (65) : 21.89982968568802, test (err/total) : 3197 / 10000
+Epoch (66) : 21.87708941102028, test (err/total) : 3205 / 10000
+Epoch (67) : 21.607701778411865, test (err/total) : 3196 / 10000
+Epoch (68) : 21.51982420682907, test (err/total) : 3195 / 10000
+Epoch (69) : 21.06397995352745, test (err/total) : 3206 / 10000
+Epoch (70) : 20.992999613285065, test (err/total) : 3192 / 10000
+Epoch (71) : 21.12252141535282, test (err/total) : 3188 / 10000
+Epoch (72) : 20.998197093605995, test (err/total) : 3220 / 10000
+Epoch (73) : 20.190625220537186, test (err/total) : 3215 / 10000
+Epoch (74) : 20.339972764253616, test (err/total) : 3216 / 10000
+Epoch (75) : 20.358272790908813, test (err/total) : 3210 / 10000
+Epoch (76) : 19.95148566365242, test (err/total) : 3221 / 10000
+Epoch (77) : 19.980472594499588, test (err/total) : 3234 / 10000
+Epoch (78) : 19.494394153356552, test (err/total) : 3220 / 10000
+Epoch (79) : 19.527546122670174, test (err/total) : 3226 / 10000
+Epoch (80) : 19.55990196764469, test (err/total) : 3243 / 10000
+Epoch (81) : 19.589522272348404, test (err/total) : 3220 / 10000
+Epoch (82) : 19.36952756345272, test (err/total) : 3228 / 10000
+Epoch (83) : 19.165640577673912, test (err/total) : 3237 / 10000
+Epoch (84) : 18.8193461894989, test (err/total) : 3232 / 10000
+Epoch (85) : 18.816694602370262, test (err/total) : 3231 / 10000
+Epoch (86) : 18.609622970223427, test (err/total) : 3233 / 10000
+Epoch (87) : 18.21784520149231, test (err/total) : 3232 / 10000
+Epoch (88) : 18.247553765773773, test (err/total) : 3225 / 10000
+Epoch (89) : 18.214004576206207, test (err/total) : 3228 / 10000
+Epoch (90) : 17.999861627817154, test (err/total) : 3239 / 10000
+Epoch (91) : 17.833772912621498, test (err/total) : 3231 / 10000
+Epoch (92) : 17.84669652581215, test (err/total) : 3225 / 10000
+Epoch (93) : 17.73055264353752, test (err/total) : 3228 / 10000
+Epoch (94) : 17.403343588113785, test (err/total) : 3239 / 10000
+Epoch (95) : 17.231459334492683, test (err/total) : 3241 / 10000
+Epoch (96) : 17.676224872469902, test (err/total) : 3235 / 10000
+Epoch (97) : 17.48291002213955, test (err/total) : 3240 / 10000
+Epoch (98) : 16.878368496894836, test (err/total) : 3244 / 10000
+Epoch (99) : 16.760674387216568, test (err/total) : 3259 / 10000
