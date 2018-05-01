@@ -1,3 +1,4 @@
+import torch as th
 import torch.nn as nn
 import torch.nn.functional as F
 
@@ -47,30 +48,49 @@ class ConvModel2(nn.Module):
 
 	def __init__(self, vocab_size, embedding_size, padding, sent_length):
 		super(ConvModel2, self).__init__()
+
 		self.embeds_dim = embedding_size
 		self.sent_length = sent_length
 		self.in_channel_conv = 1
 		self.out_channel_conv = 100
+
 		self.embedding = nn.Embedding(
 			vocab_size,
 			embedding_size,
 			padding_idx=padding)
-		self.conv2D_1 = nn.Conv2d(
-			self.in_channel_conv,
-			self.out_channel_conv,
-			(3, self.embeds_dim),
-			stride=(1,1))
+
+		kernel_sizes = [3, 4, 5]
+
+		self.conv = nn.ModuleList([ \
+			nn.Conv2d( \
+				self.in_channel_conv, \
+				self.out_channel_conv, \
+				(k, self.embeds_dim)) \
+			for k in kernel_sizes])
+
 		self.maxPool1D = nn.MaxPool1d(self.sent_length - 2, 100)
-		self.linear1 = nn.Linear(self.out_channel_conv, 1)
-		self.dropout = nn.Dropout(0.2) #Utile ?
+
+		self.maxpool = nn.ModuleList([ \
+			nn.MaxPool1d(self.sent_length - k + 1, self.out_channel_conv) \
+			for k in kernel_sizes])
+
+		self.linear1 = nn.Linear(self.out_channel_conv * len(kernel_sizes), 1)
+		self.dropout = nn.Dropout(2e-1)
 		self.sig1 = nn.Sigmoid()
 
 	def forward(self, inputs):
-		out = self.embedding(inputs)
-		out = out.view(-1, 1, self.sent_length, self.embeds_dim)
-		out = self.conv2D_1(out)
-		out = F.relu(out).view(-1, self.out_channel_conv, self.sent_length - 2)
-		out = self.maxPool1D(out).view(-1, self.out_channel_conv)
+		# -1 pour taille de batch
+		# embeds : (-1, self.sent_length, self.embeds_dim)
+		# unsqueeze(1) : (-1, 1, self.sent_length, self.embeds_dim)
+		out = self.embedding(inputs).unsqueeze(1)
+		# conv : (-1, self.out_channel_conv, self.sent_length - k + 1, 1)
+		# squeeze(3) : (-1, self.out_channel_conv, self.sent_length - k + 1)
+		outs = [F.relu(conv2d(out)).squeeze(3) for conv2d in self.conv]
+		# pool : (-1, self.out_channel_conv, 1)
+		# squeeze(2) : (-1, self.out_channel_conv)
+		outs = [pool(conv_out).squeeze(2) for conv_out, pool in zip(outs, self.maxpool)]
+		# concaténation des différentes convolution et maxpool
+		out = th.cat(outs, 1)
 		out = self.linear1(out)
 		out = self.dropout(out)
 		return self.sig1(out)
