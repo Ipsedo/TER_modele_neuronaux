@@ -5,7 +5,7 @@ import torch as th
 import torch.nn as nn
 import torch.autograd as ag
 
-from read_twit import make_data
+from read_twit import make_data_conv
 from read_twit import open_twit
 import prepare_data
 
@@ -22,18 +22,18 @@ use_cuda = th.cuda.is_available()
 print("Load data (%s tweets)..." % (NB_TWIT))
 
 all_lines = open_twit("./res/Sentiment Analysis Dataset.csv")
-data = make_data(all_lines, NB_TWIT)
+data = make_data_conv(all_lines, NB_TWIT)
 
-# print(data[0])
-# print(data[6])
-# print(data[7])
-# print(data[15])
-# print(data[60])
-# print(data[75])
-# print(data[153])
-# print(data[179])
-# print(data[32])
-# print(data[32])
+print(data[0])
+print(data[6])
+print(data[7])
+print(data[15])
+print(data[60])
+print(data[75])
+print(data[153])
+print(data[179])
+print(data[32])
+print(data[32])
 
 char_to_ix = prepare_data.make_vocab_char(data)
 all_data = prepare_data.line_to_char_ix(data, char_to_ix)
