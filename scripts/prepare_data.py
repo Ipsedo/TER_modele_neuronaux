@@ -21,19 +21,16 @@ def make_vocab_char(data):
 	char_to_ix = {}
 	char_to_ix["<padding>"] = 0
 	for l, line in data:
-		for w in line:
-			for c in w:
-				if not c in char_to_ix:
-					char_to_ix[c] = len(char_to_ix)
+		for c in line:
+			if not c in char_to_ix:
+				char_to_ix[c] = len(char_to_ix)
 	return char_to_ix
 
 # On convertit les char en index et on rajoute du padding
 def line_to_char_ix(data, char_to_ix):
 	res = []
 	for l, line in data:
-		tmp = []
-		for w in line:
-			tmp += [char_to_ix[c] for c in w]
+		tmp = [char_to_ix[c] for c in line]
 		if len(tmp) < 140:
 			tmp += [PADDING] * (140 - len(tmp))
 		if len(tmp) == 140:
