@@ -4,7 +4,7 @@ import pickle
 import torch as th
 import torch.autograd as ag
 
-from read_twit import make_data
+from read_twit import make_data_conv
 from read_twit import open_twit
 import prepare_data
 
@@ -20,7 +20,7 @@ use_cuda = False
 print("Load data (%s tweets)..." % (NB_TWIT))
 
 all_lines = open_twit("./res/Sentiment Analysis Dataset.csv")
-data = make_data(all_lines, NB_TWIT)
+data = make_data_conv(all_lines, NB_TWIT)
 char_to_ix = prepare_data.make_vocab_char(data)
 all_data = prepare_data.line_to_char_ix(data, char_to_ix)
 all_data = [x for x in all_data if len(x[1]) > 0]
@@ -43,7 +43,7 @@ def eval_model(model, dataset):
 	return nbErr, total
 
 print("Load model...")
-(model, _, _) = pickle.load(open("./model/1/model.p", "rb" ))
+(model, _, _) = pickle.load(open("./model/2/model.p", "rb" ))
 
 print("Test model...")
 err, total = eval_model(model, data_test)
