@@ -1,4 +1,5 @@
 #!/home/samuel/anaconda3/bin/python
+import pickle
 
 import torch as th
 import torch.nn as nn
@@ -11,7 +12,7 @@ import prepare_data
 import model
 
 # Dataset : TEST DEV TRAIN
-NB_TRAIN = 10000
+NB_TRAIN = 500000
 NB_DEV = 10000
 NB_TEST = 10000
 NB_TWIT = NB_DEV + NB_TEST + NB_TRAIN
@@ -68,12 +69,12 @@ def eval_model(model, dataset):
 			nbErr += 1
 	return nbErr, total
 
-EPOCH = 100
+EPOCH = 20
 vocab_size = len(char_to_ix)
 embedding_dim = 100
 
 model = model.ConvModel2(vocab_size, embedding_dim, 0, 140)
-learning_rate = 1e-4
+learning_rate = 1e-3
 loss_fn = nn.BCELoss()
 
 if use_cuda:
@@ -97,6 +98,12 @@ for i in range(EPOCH):
 		total_loss += loss.data[0]
 		loss.backward()
 		optimizer.step()
-	# if i % 10 == 0:
-	err, total = eval_model(model, data_dev)
-	print("Epoch (", i, ") : ", total_loss, ", test (err/total) : ", err, " / ", total, sep="")
+	print("Epoch", i)
+	"""if i % 10 == 0:
+		err, total = eval_model(model, data_dev)
+		print("Epoch (", i, ") : ", total_loss, ", test (err/total) : ", err, " / ", total, sep="")"""
+err, total = eval_model(model, data_test)
+print("Test", err, "/", total)
+
+tosave = (model, optimizer, loss_fn)
+pickle.dump( tosave, open( "model.p", "wb" ) )
