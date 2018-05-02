@@ -36,7 +36,8 @@ def line_to_char_ix(data, char_to_ix):
 			tmp += [char_to_ix[c] for c in w]
 		if len(tmp) < 140:
 			tmp += [PADDING] * (140 - len(tmp))
-		res.append((l, tmp))
+		if len(tmp) == 140:
+			res.append((l, tmp))
 	return res
 
 # Convertit line char en tensor pytorch
