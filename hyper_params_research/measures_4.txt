@@ -1,0 +1,18 @@
+10000 TRAIN
+10000 DEV
+10000 TEST
+embedding : 100
+
+learning_rate : 1e-3
+
+Adam, BCELoss, ConvModel2
+20 epochs
+
+out channel convolution, err / total
+10 , 3473 / 10000
+20 , 3438 / 10000
+30 , 3453 / 10000
+40 , 3452 / 10000
+50 , 3360 / 10000
+100 , 3261 / 10000
+200 , 3491 / 10000
