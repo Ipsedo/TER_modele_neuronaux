@@ -15,7 +15,7 @@ import model
 NB_TRAIN = 500000
 NB_DEV = 10000
 NB_TEST = 10000
-NB_TWIT = NB_DEV + NB_TEST + NB_TRAIN
+NB_TWIT = NB_TEST + NB_DEV +  NB_TRAIN
 
 use_cuda = th.cuda.is_available()
 
@@ -105,5 +105,7 @@ for i in range(EPOCH):
 err, total = eval_model(model, data_test)
 print("Test", err, "/", total)
 
+model.cpu()
+loss_fn.cpu()
 tosave = (model, optimizer, loss_fn)
 pickle.dump( tosave, open( "model.p", "wb" ) )
