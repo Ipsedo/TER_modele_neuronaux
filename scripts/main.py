@@ -1,4 +1,4 @@
-#!/home/samuel/anaconda3/bin/python
+#!/usr/bin/env python
 import pickle
 
 import torch as th
