@@ -9,13 +9,14 @@ learning_rate : 1e-3
 
 Adam, BCELoss, ConvModel2
 
-Epoch (0) : 42.716563403606415, test (err/total) : 3523 / 10000
-Epoch (10) : 24.225483030080795, test (err/total) : 3331 / 10000
-Epoch (20) : 18.280994340777397, test (err/total) : 3290 / 10000
-Epoch (30) : 22.140874713659286, test (err/total) : 3552 / 10000
-Epoch (40) : 12.557174757122993, test (err/total) : 3375 / 10000
-Epoch (50) : 14.912009060382843, test (err/total) : 4266 / 10000
-Epoch (60) : 10.956487469375134, test (err/total) : 3449 / 10000
-Epoch (70) : 10.301658034324646, test (err/total) : 3374 / 10000
-Epoch (80) : 10.074633598327637, test (err/total) : 3380 / 10000
-Epoch (90) : 10.253162316977978, test (err/total) : 3369 / 10000
+Epoch (0) : 41.9759658575058, test (err/total) : 3309 / 10000
+Epoch (10) : 25.592741042375565, test (err/total) : 3172 / 10000
+Epoch (20) : 21.701254919171333, test (err/total) : 3153 / 10000
+Epoch (30) : 29.844928488135338, test (err/total) : 4175 / 10000
+Epoch (40) : 20.875173449516296, test (err/total) : 3843 / 10000
+Epoch (50) : 12.794593453407288, test (err/total) : 3309 / 10000
+Epoch (60) : 13.158900052309036, test (err/total) : 3343 / 10000
+Epoch (70) : 20.692032381892204, test (err/total) : 4052 / 10000
+Epoch (80) : 10.145996652543545, test (err/total) : 3263 / 10000
+Epoch (90) : 9.943990990519524, test (err/total) : 3263 / 10000
+Epoch (100) : 10.091726884245872, test (err/total) : 3274 / 10000
