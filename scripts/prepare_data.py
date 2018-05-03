@@ -2,7 +2,7 @@ import torch as th
 import torch.nn.functional as F
 
 PADDING = 0
-LIMIT_COUNT = 0
+LIMIT_COUNT = 1
 
 def make_long_tensor(list, use_cuda):
 	if use_cuda:
