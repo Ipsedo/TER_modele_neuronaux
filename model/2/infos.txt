@@ -4,7 +4,7 @@ ModelEmbeddingBag.p (tuple) :
 EmbeddingBagModel
 Adam
 BCELoss
-embedding : 20
+embedding : 100
 learning rate : 1e-1
 epochs : 30
 
