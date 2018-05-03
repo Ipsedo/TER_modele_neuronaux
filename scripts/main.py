@@ -9,11 +9,15 @@ import prepare_data
 
 import model
 
-NB_TWIT = 100000
-LIMIT = int(NB_TWIT * 9 / 10)
+# Dataset : TEST DEV TRAIN
+NB_TRAIN = 500000
+NB_DEV = 10000
+NB_TEST = 10000
+NB_TWIT = NB_TEST + NB_DEV +  NB_TRAIN
 
 use_cuda = th.cuda.is_available()
 
+print("Load data (%s tweets)..." % (NB_TWIT))
 all_lines = open_twit("./res/Sentiment Analysis Dataset.csv")
 data = make_data(all_lines, NB_TWIT)
 #print(data[32])
@@ -23,8 +27,9 @@ words_to_ix, word_count = prepare_data.make_vocab(data)
 
 all_data = prepare_data.line_to_ix(data, words_to_ix, word_count)
 all_data = [x for x in all_data if len(x[1]) > 0]
-data = all_data[:LIMIT]
-data_test = all_data[LIMIT:]
+data = all_data[NB_TEST + NB_DEV:]
+data_test = all_data[:NB_TEST]
+data_dev = all_data[NB_TEST:NB_TEST + NB_DEV]
 #print(data_test)
 #print(data[32])
 
@@ -48,9 +53,10 @@ def eval_model(model, test_data):
 line, off, labels = prepare_data.make_tensor_list_offset(data, 50, use_cuda)
 #print(len(line), len(off), len(labels))
 
-EPOCH = 100
+print("Prepare model...")
+EPOCH = 30
 vocab_size = len(words_to_ix)
-embedding_dim = 50
+embedding_dim = 20
 
 model = model.EmbeddingBagModel(vocab_size, embedding_dim)
 learning_rate = 1e-1
@@ -62,11 +68,10 @@ if use_cuda:
 
 optimizer = th.optim.Adam(model.parameters(), lr=learning_rate)
 
+print("Learn model...")
 for i in range(EPOCH):
 	model.train()
-
 	total_loss = 0
-
 	for x, y, offset in zip(line, labels, off):
 		model.zero_grad()
 		x = ag.Variable(x)
@@ -78,7 +83,16 @@ for i in range(EPOCH):
 		total_loss += loss.data[0]
 		loss.backward()
 		optimizer.step()
-	if i % 10 == 0:
+	print("Epoch (%d)" % (i))
+	"""if i % 10 == 0:
 		model.eval()
-		err, total = eval_model(model, data_test)
-		print("Epoch (", i, ") : ", total_loss, ", test (err/total) : ", err, " / ", total, sep="")
+		err, total = eval_model(model, data_dev)
+		print("Epoch (", i, ") : ", total_loss, ", dev (err/total) : ", err, " / ", total, sep="")"""
+
+err, total = eval_model(model, data_test)
+print("Test (err / total) :", err, "/", total)
+
+model.cpu()
+loss_fn.cpu()
+tosave = (model, optimizer, loss_fn, words_to_ix)
+pickle.dump( tosave, open( "ModelEmbeddingBag.p", "wb" ) )
