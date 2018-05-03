@@ -102,10 +102,14 @@ for i in range(EPOCH):
 	"""if i % 10 == 0:
 		err, total = eval_model(model, data_dev)
 		print("Epoch (", i, ") : ", total_loss, ", test (err/total) : ", err, " / ", total, sep="")"""
+
+"""err, total = eval_model(model, data_dev)
+print("Test", err, "/", total)"""
+
 err, total = eval_model(model, data_test)
 print("Test", err, "/", total)
 
 model.cpu()
 loss_fn.cpu()
-tosave = (model, optimizer, loss_fn)
+tosave = (model, optimizer, loss_fn, char_to_ix)
 pickle.dump( tosave, open( "model.p", "wb" ) )
