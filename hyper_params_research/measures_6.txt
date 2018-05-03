@@ -1,0 +1,18 @@
+10000 TRAIN
+10000 DEV
+10000 TEST
+
+epoch : 30
+
+learning_rate : 1e-1
+
+Adam, BCELoss, EmbeddingBagModel
+
+embedding, err / total
+10, 3371 / 10000
+20, 3233 / 10000
+30, 3316 / 10000
+40, 3379 / 10000
+50, 3670 / 10000
+100, 3758 / 10000
+200, 4055 / 10000
