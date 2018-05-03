@@ -1,0 +1,21 @@
+10000 TRAIN
+10000 DEV
+10000 TEST
+
+embedding : 50
+
+learning_rate : 1e-1
+
+Adam, BCELoss, EmbeddingBagModel
+
+Epoch (0) : 191.69984900951385, dev (err/total) : 3686 / 10000
+Epoch (10) : 1022.2327954769135, dev (err/total) : 3560 / 10000
+Epoch (20) : 1038.1957377195358, dev (err/total) : 3486 / 10000
+Epoch (30) : 1030.467651128769, dev (err/total) : 3429 / 10000
+Epoch (40) : 1054.3732647895813, dev (err/total) : 3458 / 10000
+Epoch (50) : 1203.6163244247437, dev (err/total) : 3492 / 10000
+Epoch (60) : 1102.2568817138672, dev (err/total) : 3526 / 10000
+Epoch (70) : 1095.4571018218994, dev (err/total) : 3508 / 10000
+Epoch (80) : 1006.648327589035, dev (err/total) : 3338 / 10000
+Epoch (90) : 999.4399231672287, dev (err/total) : 3435 / 10000
+Epoch (100) : 1036.7142918109894, dev (err/total) : 3480 / 10000
