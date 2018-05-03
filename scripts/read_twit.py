@@ -32,10 +32,10 @@ def tokenize_line(line):
 	return [w.strip(" ") for w in re.split('(\W+)', line) if w.strip(" ")]
 
 def tokenize_line_2(line):
-	#line =  "".join([w + " " for w in line.split(" ") if w != ""])
 	line = line.lower()
 	line = re.sub(regex_balise, "", line)
 	line = re.sub(regex_url, "", line)
+	line = re.sub(regex_identifiant, "", line)
 	line = re.sub(regex_not_word, "", line)
 	return line
 
@@ -57,7 +57,6 @@ def format_word(words):
 
 def make_data(all_line, max_ex):
 	res = []
-
 	for i, line in enumerate(all_line):
 		if line == "":
 			continue
@@ -72,7 +71,6 @@ def make_data(all_line, max_ex):
 
 def make_data_conv(all_line, max_ex):
 	res = []
-
 	for i, line in enumerate(all_line):
 		if line == "":
 			continue
