@@ -17,11 +17,14 @@ NB_TWIT = NB_TEST + NB_DEV +  NB_TRAIN
 
 use_cuda = False
 
+
+print("Load model...")
+(model, _, _, char_to_ix) = pickle.load(open("./model/1/model.p", "rb" ))
+
 print("Load data (%s tweets)..." % (NB_TWIT))
 
 all_lines = open_twit("./res/Sentiment Analysis Dataset.csv")
 data = make_data_conv(all_lines, NB_TWIT)
-char_to_ix = prepare_data.make_vocab_char(data)
 all_data = prepare_data.line_to_char_ix(data, char_to_ix)
 all_data = [x for x in all_data if len(x[1]) > 0]
 data_test = all_data
@@ -41,9 +44,6 @@ def eval_model(model, dataset):
 		if out.data[0] != int(y):
 			nbErr += 1
 	return nbErr, total
-
-print("Load model...")
-(model, _, _) = pickle.load(open("./model/2/model.p", "rb" ))
 
 print("Test model...")
 err, total = eval_model(model, data_test)
