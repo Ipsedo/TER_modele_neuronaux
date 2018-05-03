@@ -1,4 +1,4 @@
-#!/home/samuel/anaconda3/bin/python
+#!/usr/bin/env python
 import pickle
 
 import torch as th
@@ -6,7 +6,8 @@ import torch.autograd as ag
 
 from read_twit import make_data_conv
 from read_twit import open_twit
-import prepare_data
+import prepare_data_conv
+import utils
 
 import model
 
@@ -25,7 +26,7 @@ print("Load data (%s tweets)..." % (NB_TWIT))
 
 all_lines = open_twit("./res/Sentiment Analysis Dataset.csv")
 data = make_data_conv(all_lines, NB_TWIT)
-all_data = prepare_data.line_to_char_ix(data, char_to_ix)
+all_data = prepare_data_conv.line_to_char_ix(data, char_to_ix)
 all_data = [x for x in all_data if len(x[1]) > 0]
 data_test = all_data
 
@@ -35,7 +36,7 @@ def eval_model(model, dataset):
 	total = 0
 	nbPos = 0
 	for y, x in dataset:
-		x = prepare_data.make_long_tensor(x, use_cuda).view((1,-1))
+		x = utils.make_long_tensor(x, use_cuda).view((1,-1))
 		x = ag.Variable(x)
 		out = model(x)
 		out = out > 0.5

@@ -1,4 +1,4 @@
-#!/home/samuel/anaconda3/bin/python
+#!/usr/bin/env python
 import pickle
 
 import torch as th
@@ -8,7 +8,7 @@ import torch.autograd as ag
 from read_twit import make_data
 from read_twit import open_twit
 import prepare_data
-
+import utils
 import model
 
 # Dataset : TEST DEV TRAIN
@@ -40,8 +40,8 @@ def eval_model(model, test_data):
 	nbErr = 0
 	total = 0
 	for y, x in test_data:
-		x = prepare_data.make_long_tensor(x, use_cuda)
-		off = prepare_data.make_long_tensor([0], use_cuda)
+		x = utils.make_long_tensor(x, use_cuda)
+		off = utils.make_long_tensor([0], use_cuda)
 		x = ag.Variable(x)
 		off = ag.Variable(off)
 		out = model((x, off)) > 0.5

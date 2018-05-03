@@ -1,6 +1,3 @@
-
-# yoon kim 2014
-
 import re
 
 def open_twit(filename):
