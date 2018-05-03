@@ -7,17 +7,17 @@ import torch.autograd as ag
 
 from read_twit import make_data_conv
 from read_twit import open_twit
-import prepare_data
-
+import prepare_data_conv
+import utils
 import model
 
 # Dataset : TEST DEV TRAIN
-NB_TRAIN = 500000
+NB_TRAIN = 10000
 NB_DEV = 10000
 NB_TEST = 10000
 NB_TWIT = NB_TEST + NB_DEV +  NB_TRAIN
 
-use_cuda = th.cuda.is_available()
+use_cuda = False#th.cuda.is_available()
 
 print("Load data (%s tweets)..." % (NB_TWIT))
 
@@ -35,8 +35,8 @@ data = make_data_conv(all_lines, NB_TWIT)
 # print(data[32])
 # print(data[32])
 
-char_to_ix = prepare_data.make_vocab_char(data)
-all_data = prepare_data.line_to_char_ix(data, char_to_ix)
+char_to_ix = prepare_data_conv.make_vocab_char(data)
+all_data = prepare_data_conv.line_to_char_ix(data, char_to_ix)
 
 all_data = [x for x in all_data if len(x[1]) > 0]
 
@@ -46,7 +46,7 @@ data = all_data[NB_TEST + NB_DEV:]
 data_test = all_data[:NB_TEST]
 data_dev = all_data[NB_TEST:NB_TEST + NB_DEV]
 
-line, labels = prepare_data.line_char_to_tensor(data, 150, use_cuda)
+line, labels = prepare_data_conv.line_char_to_tensor(data, 150, use_cuda)
 # print(len(line), len(labels))
 # print(type(line[0]), type(labels[0]))
 # print(line[0].size(), labels[0].size())
@@ -59,7 +59,7 @@ def eval_model(model, dataset):
 	total = 0
 	nbPos = 0
 	for y, x in dataset:
-		x = prepare_data.make_long_tensor(x, use_cuda).view((1,-1))
+		x = utils.make_long_tensor(x, use_cuda).view((1,-1))
 		x = ag.Variable(x)
 		out = model(x)
 		out = out > 0.5

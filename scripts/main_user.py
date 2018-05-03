@@ -5,7 +5,7 @@ import torch as th
 import torch.autograd as ag
 
 from read_twit import tokenize_line_2
-import prepare_data
+import prepare_data_conv
 
 class_to_sentiment = { 1 : "positif", 0 : "negatif" }
 
@@ -20,8 +20,8 @@ def read_input():
 
 def input_to_variable(text, vocab):
     text = tokenize_line_2(text)
-    idxs = prepare_data.text_to_char_ix(text, vocab)
-    tensor = prepare_data.make_long_tensor(idxs, False)
+    idxs = prepare_data_conv.text_to_char_ix(text, vocab)
+    tensor = prepare_data_conv.make_long_tensor(idxs, False)
     return ag.Variable(tensor.view(1, -1))
 
 def test_user():
