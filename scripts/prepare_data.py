@@ -37,6 +37,13 @@ def line_to_char_ix(data, char_to_ix):
 			res.append((l, tmp))
 	return res
 
+# Convertit une phrase de char en index selon le vocab char_to_ix
+def text_to_char_ix(text, char_to_ix):
+	res = [char_to_ix[c] for c in text]
+	if len(res) < 140:
+		res += [PADDING] * (140 - len(res))
+	return res
+
 # Convertit line char en tensor pytorch
 def line_char_to_tensor(data, batch_size, use_cuda):
 	res_line = []
