@@ -58,7 +58,7 @@ line, off, labels = prepare_data.make_tensor_list_offset(data, 50, use_cuda)
 print("Prepare model...")
 EPOCH = 30
 vocab_size = len(words_to_ix)
-embedding_dim = 100
+embedding_dim = 20
 
 model = model.EmbeddingBagModel(vocab_size, embedding_dim)
 learning_rate = 1e-1
