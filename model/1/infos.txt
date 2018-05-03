@@ -1,5 +1,5 @@
 model.p (tuple) :
-(model, optimizer, loss_fn)
+(model, optimizer, loss_fn, vocab)
 
 ConvModel2
 Adam
