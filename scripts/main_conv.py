@@ -12,12 +12,12 @@ import utils
 import model
 
 # Dataset : TEST DEV TRAIN
-NB_TRAIN = 10000
+NB_TRAIN = 500000
 NB_DEV = 10000
 NB_TEST = 10000
 NB_TWIT = NB_TEST + NB_DEV +  NB_TRAIN
 
-use_cuda = False#th.cuda.is_available()
+use_cuda = th.cuda.is_available()
 
 print("Load data (%s tweets)..." % (NB_TWIT))
 
@@ -46,7 +46,7 @@ data = all_data[NB_TEST + NB_DEV:]
 data_test = all_data[:NB_TEST]
 data_dev = all_data[NB_TEST:NB_TEST + NB_DEV]
 
-line, labels = prepare_data_conv.line_char_to_tensor(data, 150, use_cuda)
+line, labels = prepare_data_conv.line_char_to_tensor(data, 50, use_cuda)
 # print(len(line), len(labels))
 # print(type(line[0]), type(labels[0]))
 # print(line[0].size(), labels[0].size())
@@ -65,7 +65,7 @@ def eval_model(model, dataset):
 		out = out > 0.5
 		out = out.view((1))
 		total += 1
-		if out.data[0] != int(y):
+		if out.item() != int(y):
 			nbErr += 1
 	return nbErr, total
 
@@ -95,7 +95,7 @@ for i in range(EPOCH):
 
 		out = model(x)
 		loss = loss_fn(out, y)
-		total_loss += loss.data[0]
+		total_loss += loss.item()
 		loss.backward()
 		optimizer.step()
 	print("Epoch", i)
