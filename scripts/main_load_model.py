@@ -35,6 +35,7 @@ def eval_model(model, dataset):
 	total = 0
 	nbPos = 0
 	answer = { 0:0, 1:0 }
+	tot = {0:0,1:0}
 	for y, x in dataset:
 		x = utils.make_long_tensor(x, use_cuda).view((1,-1))
 		x = ag.Variable(x)
@@ -42,12 +43,14 @@ def eval_model(model, dataset):
 		out = out > 0.5
 		out = out.view((1))
 		total += 1
+		tot[int(y)] += 1
 		if out.item() != int(y):
 			nbErr += 1
 			answer[int(y)] += 1
-	return nbErr, total, answer
+	return nbErr, total, answer, tot
 
 print("Test model...")
-err, total, answer = eval_model(model, data_test)
+err, total, answer, tot = eval_model(model, data_test)
 print("Test", err, "/", total)
 print(answer)
+print(tot)
