@@ -82,7 +82,7 @@ for i in range(EPOCH):
 
 		out = model((x, offset))
 		loss = loss_fn(out, y)
-		total_loss += loss.data[0]
+		total_loss += loss.item()
 		loss.backward()
 		optimizer.step()
 	print("Epoch (%d)" % (i))
@@ -96,5 +96,5 @@ print("Test (err / total) :", err, "/", total)
 
 model.cpu()
 loss_fn.cpu()
-tosave = (model, optimizer, loss_fn, words_to_ix)
+tosave = (model, optimizer, loss_fn, words_to_ix, word_count)
 pickle.dump( tosave, open( "ModelEmbeddingBag.p", "wb" ) )
