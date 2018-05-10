@@ -29,7 +29,7 @@ def test_user():
     x = input_to_variable(text, vocab)
     print("Model is predicting...")
     out = model(x) > 0.5
-    pred = out.view(1).data[0]
+    pred = out.view(1).item()
     print("Model thinks that it is %s" % (class_to_sentiment[pred]))
 
 NB_TEST = 3
