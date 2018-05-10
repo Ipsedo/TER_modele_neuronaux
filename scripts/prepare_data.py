@@ -27,6 +27,14 @@ def line_to_ix(data, word_to_ix, word_count):
 			res.append((l, line))
 	return res
 
+def line_to_ix2(data, word_to_ix):
+	res = []
+	for l, line in data:
+		line = [word_to_ix[w] for w in line if w in word_to_ix]
+		if len(line) > 0:
+			res.append((l, line))
+	return res
+
 def make_tensor_list(data, batch_size):
 	line = []
 	labels = []
