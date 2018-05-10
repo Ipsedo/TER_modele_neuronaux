@@ -18,7 +18,6 @@ NB_TWIT = NB_TEST + NB_DEV +  NB_TRAIN
 
 use_cuda = False
 
-
 print("Load model...")
 (model, _, _, char_to_ix) = pickle.load(open("./model/1/model.p", "rb" ))
 
@@ -35,6 +34,7 @@ def eval_model(model, dataset):
 	nbErr = 0
 	total = 0
 	nbPos = 0
+	answer = { 0:0, 1:0 }
 	for y, x in dataset:
 		x = utils.make_long_tensor(x, use_cuda).view((1,-1))
 		x = ag.Variable(x)
@@ -42,10 +42,12 @@ def eval_model(model, dataset):
 		out = out > 0.5
 		out = out.view((1))
 		total += 1
-		if out.data[0] != int(y):
+		if out.item() != int(y):
 			nbErr += 1
-	return nbErr, total
+			answer[int(y)] += 1
+	return nbErr, total, answer
 
 print("Test model...")
-err, total = eval_model(model, data_test)
+err, total, answer = eval_model(model, data_test)
 print("Test", err, "/", total)
+print(answer)
