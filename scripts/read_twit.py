@@ -9,7 +9,7 @@ def open_twit(filename):
 	return all_line
 
 regex_balise = "&.+;"
-regex_url = "http[a-z0-9\.\\\:]+"
+regex_url = "http[a-z0-9\.\/\:]+"
 #regex_happy_smiley = "(:|=|;|x)-*(\)|d|p)+"
 #regex_sad_smiley = "(:|=|;|x)-*(\(|/|\||o|\$|\[)+"
 regex_identifiant = "@[a-z0-9]+"
